@@ -15,19 +15,26 @@ async function getIdentityStorage(accountId) {
   }
 
   const { info, judgements, deposit } = identityInfo.unwrap();
+
   identity.info = {
-    display: info.display.asRaw.toUtf8(),
-    legal: info.legal.asRaw.toHuman(),
-    web: info.web.asRaw.toHuman(),
-    riot: info.riot.asRaw.toHuman(),
-    email: info.email.asRaw.toHuman(),
-    image: info.image.asRaw.toHuman(),
-    twitter: info.twitter.asRaw.toHuman(),
-    pgpFingerprint: info.pgpFingerprint.isSome
-      ? info.pgpFingerprint.unwrap().toHex()
-      : null,
+    display:  info.display.asRaw.toUtf8?.() || null,
+    legal:    info.legal.asRaw.toHuman?.() || null,
+    web:      info.web.asRaw.toHuman?.() || null,
+    riot:     info.riot.asRaw.toHuman?.() || null,
+    email:    info.email.asRaw.toHuman?.() || null,
+    image:    info.image.asRaw.toHuman?.() || null,
+    twitter:  info.twitter.asRaw.toHuman?.() || null,
+    pgpFingerprint: info.pgpFingerprint.isSome ? info.pgpFingerprint.unwrap().toHex() : null,
+    additional: {},
   };
-  identity.deposit = await toDecimal128(deposit);
+
+  info.additional?.forEach(item => {
+    const key = item[0].asRaw.toUtf8();
+    const value = item[1].asRaw.toUtf8();
+    identity.info.additional[key] = value;
+  });
+
+  identity.deposit = toDecimal128(deposit);
   if (judgements.length > 0) {
     identity.judgements = setIdentityJudgements(identity, judgements);
   }

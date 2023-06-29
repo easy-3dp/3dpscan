@@ -5,6 +5,7 @@ const {
 
 let db = null;
 let identityCol = null;
+let identityWebCol = null;
 let identityTimelineCol = null;
 let registrarsCollection = null;
 let registrarsTimelineCollection = null;
@@ -18,6 +19,7 @@ async function initIdentityScanDb() {
   await db.init();
 
   identityCol = await db.createCol("identity");
+  identityWebCol = await db.createCol("identity_web");
   identityTimelineCol = await db.createCol("identityTimeline");
   subIdentitiesCol = await db.createCol("subIdentities");
   registrarsCollection = await db.createCol("registrars");
@@ -34,6 +36,9 @@ async function _createIndexes() {
   // _id set to accountId as index
   const identityCollection = await getIdentityCollection();
   await identityCollection.createIndex({ "info.display": 1 });
+
+  const identityWebCollection = await getIdentityWebCollection();
+  await identityWebCollection.createIndex({ "info.display": 1 });
 
   const identityTimelineCollection = await getIdentityTimelineCollection();
   await identityTimelineCollection.createIndex({ accountId: 1 });
@@ -59,6 +64,11 @@ async function makeSureInit(col) {
 async function getIdentityCollection() {
   await makeSureInit(identityCol);
   return identityCol;
+}
+
+async function getIdentityWebCollection() {
+  await makeSureInit(identityWebCol);
+  return identityWebCol;
 }
 
 async function getIdentityTimelineCollection() {
@@ -92,6 +102,8 @@ async function getIdentityDb() {
 async function dropIdentityCollection() {
   const identityCollection = await getIdentityCollection();
   identityCollection.drop();
+  const identityWebCollection = await getIdentityWebCollection();
+  identityWebCollection.drop();
   const identityTimelineCollection = await getIdentityTimelineCollection();
   identityTimelineCollection.drop();
   const subIdentitiesCollection = await getSubIdentitiesCollection();
@@ -107,6 +119,7 @@ module.exports = {
   initIdentityScanDb,
   getIdentityDb,
   getIdentityCollection,
+  getIdentityWebCollection,
   getIdentityTimelineCollection,
   getRegistrarsCollection,
   getRegistrarsTimelineCollection,

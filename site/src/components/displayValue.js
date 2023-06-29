@@ -33,54 +33,58 @@ export default function ValueDisplay({
     return <Wrapper>--</Wrapper>;
   }
 
-  if (
-    (Number(value) >= 1000000 || getEffectiveNumbers(value)?.length >= 11) &&
-    abbreviate
-  ) {
-    const abbreviated = abbreviateBigNumber(value, 2);
-    let display = (
-      <Wrapper>
-        {abbreviated} {symbol}
-      </Wrapper>
-    );
-    if (getEffectiveNumbers(abbreviated) !== getEffectiveNumbers(value)) {
-      display = (
-        <NotEqual>
-          <span className="figures">{abbreviated}</span>{" "}
-          <span className="symbol">{symbol}</span>
-        </NotEqual>
-      );
+  // if (
+  //   (Number(value) >= 1000000 || getEffectiveNumbers(value)?.length >= 11) &&
+  //   abbreviate
+  // ) {
+  //   const abbreviated = abbreviateBigNumber(value, 2);
+  //   let display = (
+  //     <Wrapper>
+  //       {abbreviated} {symbol}
+  //     </Wrapper>
+  //   );
+  //   if (getEffectiveNumbers(abbreviated) !== getEffectiveNumbers(value)) {
+  //     display = (
+  //       <NotEqual>
+  //         <span className="figures">{abbreviated}</span>{" "}
+  //         <span className="symbol">{symbol}</span>
+  //       </NotEqual>
+  //     );
 
-      if (showNotEqualTooltip) {
-        display = (
-          <Tooltip tip={bigNumberToLocaleString(value)}>{display}</Tooltip>
-        );
-      }
-    }
-    return display;
-  }
+  //     if (showNotEqualTooltip) {
+  //       display = (
+  //         <Tooltip tip={bigNumberToLocaleString(value)}>{display}</Tooltip>
+  //       );
+  //     }
+  //   }
+  //   return display;
+  // }
 
-  const [int, decimal] = String(value).split(".");
-  if (decimal?.length > 5) {
-    const shortDeciaml = decimal.substring(0, 2);
+  // const [int, decimal] = String(value).split(".");
+  // if (decimal?.length > 5) {
+  //   const shortDeciaml = decimal.substring(0, 2);
 
-    let display = (
-      <NotEqual>
-        <span className="figures">
-          {bigNumberToLocaleString(int)}.{shortDeciaml}
-        </span>{" "}
-        <span className="symbol">{symbol}</span>
-      </NotEqual>
-    );
+  //   let display = (
+  //     <NotEqual>
+  //       <span className="figures">
+  //         {bigNumberToLocaleString(int)}.{shortDeciaml}
+  //       </span>{" "}
+  //       <span className="symbol">{symbol}</span>
+  //     </NotEqual>
+  //   );
 
-    if (showNotEqualTooltip) {
-      display = (
-        <Tooltip tip={bigNumberToLocaleString(value)}>{display}</Tooltip>
-      );
-    }
+  //   if (showNotEqualTooltip) {
+  //     display = (
+  //       <Tooltip tip={bigNumberToLocaleString(value)}>{display}</Tooltip>
+  //     );
+  //   }
 
-    return display;
-  }
+  //   return display;
+  // }
+  const parts = String(value).split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  value = parts.join('.');
+
   return (
     <Wrapper>
       <span className="figures">{value} </span>

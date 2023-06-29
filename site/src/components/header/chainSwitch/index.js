@@ -130,13 +130,7 @@ const ChainGroupItem = styled.a`
   }
 `;
 
-const polkadotChains = Object.values(chains).filter(
-  (i) => i.chain === "polkadot",
-);
-const kusamaChains = Object.values(chains).filter((i) => i.chain === "kusama");
-const westendChains = Object.values(chains).filter(
-  (i) => i.chain === "westend",
-);
+const pass3dChains = Object.values(chains).filter((i) => i.chain === "pass3d");
 
 export default function ChainSwitch() {
   const currentNode = useSelector(chainSettingSelector);
@@ -146,16 +140,8 @@ export default function ChainSwitch() {
 
   const chainOptions = [
     {
-      title: "Polkadot & Parachain",
-      chains: polkadotChains,
-    },
-    {
-      title: "Kusama & Parachain",
-      chains: kusamaChains,
-    },
-    {
-      title: "Westend & Parachain",
-      chains: westendChains,
+      title: "3DPass & Parachain",
+      chains: pass3dChains,
     },
   ];
 

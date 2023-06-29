@@ -35,21 +35,21 @@ export default function SocialMedia() {
   return (
     <Wrapper>
       <Link
-        href="https://github.com/opensquare-network/"
+        href="https://github.com/3Dpass"
         target="_blank"
         referrerPolicy="no-referrer"
       >
         <Github width={20} height={20} />
       </Link>
       <Link
-        href="https://twitter.com/OpensquareN"
+        href="https://twitter.com/3dpass_official"
         target="_blank"
         referrerPolicy="no-referrer"
       >
         <Twitter width={20} height={20} />
       </Link>
       <Link
-        href="https://app.element.io/#/room/#opensquare:matrix.org"
+        href="https://discord.gg/u24WkXcwug"
         target="_blank"
         referrerPolicy="no-referrer"
       >

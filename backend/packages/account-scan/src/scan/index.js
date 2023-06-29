@@ -14,10 +14,12 @@ const {
 } = require("@statescan/mongo");
 
 async function updateBlockAccounts(height) {
-  const addrs = getAddresses(height);
+  let addrs = getAddresses(height);
   if (addrs.length <= 0) {
     return;
   }
+
+  addrs = array.filter(item => !item.startsWith('0x'));
 
   const { notExistedAddrs, existedAddrs } = await getOnChainAccounts(addrs);
   await bulkUpdateAccounts(existedAddrs);

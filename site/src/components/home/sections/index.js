@@ -152,12 +152,12 @@ export default function Sections() {
           <Title>Governance</Title>
           <StyledPanelTableWrapper>
             <GovernanceSection />
-            <AnchorWrapper>
+            {/* <AnchorWrapper>
               <div>
                 <span>View on</span>{" "}
                 <ExternalLink href={subSquareWebsite}>SubSquare</ExternalLink>
               </div>
-            </AnchorWrapper>
+            </AnchorWrapper> */}
           </StyledPanelTableWrapper>
         </Section>
       )}
@@ -167,12 +167,12 @@ export default function Sections() {
           <Title>Treasury</Title>
           <StyledPanelTableWrapper>
             <TreasurySection />
-            <AnchorWrapper>
+            {/* <AnchorWrapper>
               <div>
                 <span>View on</span>{" "}
                 <ExternalLink href={treasuryWebsite}>doTreasury</ExternalLink>
               </div>
-            </AnchorWrapper>
+            </AnchorWrapper> */}
           </StyledPanelTableWrapper>
         </Section>
       )}

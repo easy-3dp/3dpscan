@@ -141,9 +141,9 @@ export default function Header() {
                   <ExploreInput small />
                 </ExploreInputPCWrapper>
               )}
-              <Flex>
+              {/* <Flex>
                 <ChainSwitch />
-              </Flex>
+              </Flex> */}
             </Flex>
           </FlexBetween>
         </PC>

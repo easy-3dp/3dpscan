@@ -67,6 +67,10 @@ export const toAccountDetailItem = (
   chainSetting,
   achainableProfile,
 ) => {
+  const free = account?.data?.free || 0;
+  const miscFrozen = account?.data?.miscFrozen || 0;
+  const feeFrozen = account?.data?.feeFrozen || 0;
+  const transferable = free-(miscFrozen > feeFrozen ? miscFrozen : feeFrozen)
   const data = {
     Address: <AddressAndIdentity address={id} ellipsis={false} />,
     "Total Balance": (
@@ -88,15 +92,45 @@ export const toAccountDetailItem = (
         </TextSecondary>
       </Tooltip>
     ),
-    Free: (
+    Transferable: (
       <Tooltip
-        tip={`${toPrecision(account?.data?.free || 0, chainSetting.decimals)} ${
+        tip={`${toPrecision(transferable, chainSetting.decimals)} ${
           chainSetting.symbol
         }`}
       >
         <TextSecondary>
           <ValueDisplay
-            value={toPrecision(account?.data?.free || 0, chainSetting.decimals)}
+            value={toPrecision(transferable, chainSetting.decimals)}
+            symbol={chainSetting.symbol}
+            abbreviate={false}
+          />
+        </TextSecondary>
+      </Tooltip>
+    ),
+    MiscFrozen: (
+      <Tooltip
+        tip={`${toPrecision(miscFrozen, chainSetting.decimals)} ${
+          chainSetting.symbol
+        }`}
+      >
+        <TextSecondary>
+          <ValueDisplay
+            value={toPrecision(miscFrozen, chainSetting.decimals)}
+            symbol={chainSetting.symbol}
+            abbreviate={false}
+          />
+        </TextSecondary>
+      </Tooltip>
+    ),
+    FeeFrozen: (
+      <Tooltip
+        tip={`${toPrecision(feeFrozen, chainSetting.decimals)} ${
+          chainSetting.symbol
+        }`}
+      >
+        <TextSecondary>
+          <ValueDisplay
+            value={toPrecision(feeFrozen, chainSetting.decimals)}
             symbol={chainSetting.symbol}
             abbreviate={false}
           />

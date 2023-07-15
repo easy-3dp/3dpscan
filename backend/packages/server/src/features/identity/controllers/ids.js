@@ -55,6 +55,17 @@ const {
       }
     });
 
+    for (const address of addresses){
+      if (address.startsWith('d1EjCsWUVnKTG3dysQC') && !items.some(item => item._id === address)){
+        items.push({
+          _id: address,
+          info: {
+            display: 'Treasury | 💰️ Bounty 💰️',
+          }
+        });
+      }
+    }
+
     ctx.body = normalizeHolders(items);
   }
   

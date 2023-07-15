@@ -19,7 +19,7 @@ async function updateBlockAccounts(height) {
     return;
   }
 
-  addrs = array.filter(item => !item.startsWith('0x'));
+  addrs = addrs.filter(item => !item.startsWith('0x'));
 
   const { notExistedAddrs, existedAddrs } = await getOnChainAccounts(addrs);
   await bulkUpdateAccounts(existedAddrs);
